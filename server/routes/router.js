@@ -6,9 +6,11 @@ const { BotData } = require("../models/bot_data");
 router.get("/getUser", async (req, res) => {
   console.log("Received request to get user data");
   try {
-    const telegramId = req.telegramUser.id;
+    // Для теста без авторизации используем фиксированный telegramId
+    const telegramId = "861756342";
     console.log("Telegram ID:", telegramId);
     console.log("Telegram ID:", typeof telegramId);
+    console.log("response ", req.telegramUser);
 
     const user = await User.findOne({ where: { telegramId } });
     if (!user) {
