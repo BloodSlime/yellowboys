@@ -4,16 +4,16 @@ import Balance from "./helpers/Balance";
 import FloatingValue from "./helpers/FloatingValue";
 
 const Clicker = () => {
-  const { balance, setBalance } = useContext(ClickerContext);
+  const { balance, setBalance, clickReward } = useContext(ClickerContext);
   const [realValue, setRealValue] = useState(0);
   const [floatingValues, setFloatingValues] = useState([]);
 
   const handleClick = (e) => {
-    setBalance((prev) => prev + 1);
+    setBalance((prev) => prev + clickReward);
 
     const floatingValue = {
       id: Date.now(),
-      value: 1,
+      value: clickReward,
       x: Math.random() * 300,
       y: Math.random() * 300,
     };

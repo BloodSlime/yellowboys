@@ -9,7 +9,6 @@ import GamesModal from "./modals/GamesModal";
 const Modals = ({ modalName, setWhichModal }) => {
   const closeModal = () => {
     setWhichModal("");
-    console.log("Modal closed");
   };
 
   switch (modalName) {

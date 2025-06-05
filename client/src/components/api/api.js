@@ -1,17 +1,20 @@
 import axios from "axios";
 
-const getUserData = async (initData) => {
-  const instance = axios.create({
-    baseURL: "https://yellowboys.onrender.com/api",
-    timeout: 10000,
-    headers: {
-      "Telegram-WebApp-InitData": initData,
-      "Content-Type": "application/json",
-    },
-  });
+const instance = axios.create({
+  baseURL: "https://yellowboys.onrender.com/api",
+  timeout: 10000,
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
 
+const getUserData = async (initData) => {
   try {
-    const response = await instance.get(`/getUser`);
+    const response = await instance.get(`/getUser`, {
+      headers: {
+        "Telegram-WebApp-InitData": initData,
+      },
+    });
     return response.data;
   } catch (error) {
     console.error("Error fetching user data:", error);
@@ -19,4 +22,20 @@ const getUserData = async (initData) => {
   }
 };
 
-export { getUserData };
+const updateUserData = async (initData, data) => {
+  try {
+    const response = await instance.post(
+      "/updateUser",
+      { data },
+      {
+        headers: {
+          "Telegram-WebApp-InitData": initData,
+        },
+      }
+    );
+  } catch (error) {
+    console.log("unable to update user info: ", error);
+  }
+};
+
+export { getUserData, updateUserData };

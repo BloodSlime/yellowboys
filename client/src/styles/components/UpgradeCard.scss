@@ -41,10 +41,24 @@
     background-color: #696969;
     border-radius: 10px;
     height: 10px;
+    position: relative;
+  }
+  &__progress {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 10px;
+    border-radius: 10px;
+    background: $button-gradient;
+    transition: width 0.2s ease-in-out;
   }
   &__button {
     font-size: 16px;
     margin-top: 12px;
     width: 100%;
+    padding: 13px 0;
+    &:disabled {
+      color: $black;
+    }
   }
 }

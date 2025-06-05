@@ -2,7 +2,6 @@ import "./App.scss";
 import React, { use, useEffect, useState } from "react";
 import { Provider } from "./components/context/provider.js";
 import { getUserData } from "./components/api/api.js";
-import WebApp from "@twa-dev/sdk";
 
 import Header from "./components/Header.js";
 import Clicker from "./components/Clicker.js";
@@ -11,7 +10,6 @@ import Modals from "./components/Modals.js";
 
 function App() {
   const [whichModal, setWhichModal] = useState("");
-  WebApp.ready();
 
   useEffect(() => {
     if (whichModal !== "") {
@@ -25,14 +23,7 @@ function App() {
     };
   }, [whichModal]);
 
-  useEffect(() => {
-    const getData = async () => {
-      console.log(WebApp.initData);
-      const response = await getUserData(WebApp.initData);
-      console.log(response);
-    };
-    getData();
-  });
+  useEffect(() => {});
 
   return (
     <Provider>
