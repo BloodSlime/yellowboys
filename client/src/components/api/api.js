@@ -1,11 +1,9 @@
 import axios from "axios";
 
-const serverUrl = process.env.SERVER_API_URL;
-
 const getUserData = async (initData) => {
   const instance = axios.create({
-    baseURL: "https://9118lm18-3000.euw.devtunnels.ms/api",
-    timeout: 1000,
+    baseURL: "https://yellowboys.onrender.com/api",
+    timeout: 10000,
     headers: {
       "Telegram-WebApp-InitData": initData,
       "Content-Type": "application/json",

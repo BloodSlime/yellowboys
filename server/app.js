@@ -24,23 +24,8 @@ app.use(
 );
 app.use(bodyParser.json());
 
-// ВАЖНО: preflight-запросы должны проходить БЕЗ авторизации
-app.use("/api", (req, res, next) => {
-  if (req.method === "OPTIONS") {
-    res.sendStatus(204);
-  } else {
-    next();
-  }
-});
-
 const router = require("./routes/router");
-// Временно логируем все запросы к /api для диагностики
-app.use("/api", (req, res, next) => {
-  console.log(`[${new Date().toISOString()}] ${req.method} ${req.originalUrl}`);
-  next();
-});
-// ОТКЛЮЧАЕМ авторизацию для разработки
+
 app.use("/api", telegramAuth, router);
-// app.use("/api", router);
 
 module.exports = app;

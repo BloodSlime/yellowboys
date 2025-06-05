@@ -7,6 +7,8 @@ router.get("/getUser", async (req, res) => {
   console.log("Received request to get user data");
   try {
     const telegramId = req.telegramUser.id;
+    console.log("Telegram ID:", telegramId);
+    console.log("Telegram ID:", typeof telegramId);
 
     const user = await User.findOne({ where: { telegramId } });
     if (!user) {
