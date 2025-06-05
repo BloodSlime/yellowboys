@@ -1,0 +1,13 @@
+import React from "react";
+
+const GamesModal = () => {
+  return (
+    <div className="modal">
+      <div className="modal__content">
+        <button className="modal__close"></button>
+      </div>
+    </div>
+  );
+};
+
+export default GamesModal;

@@ -1,0 +1,62 @@
+@import "../combiner/combiner.scss";
+
+.clicker {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 15px;
+  gap: 35px;
+  &__header {
+    color: $primary;
+    font-size: 32px;
+    text-align: center;
+    margin: 0;
+    user-select: none;
+    filter: $element-glow;
+  }
+
+  &__coin {
+    width: 300px;
+    background-image: url("../../assets/images/coin.png");
+    height: 300px;
+    background-repeat: no-repeat;
+    position: relative;
+  }
+
+  &-info {
+    &__balance {
+      font-size: 32px;
+      color: $primary;
+      margin: 0;
+      text-transform: uppercase;
+      filter: $element-glow;
+      user-select: none;
+    }
+    &__realvalue {
+      font-size: 12px;
+      font-family: Arial, Helvetica, sans-serif;
+      color: grey;
+      text-align: center;
+      user-select: none;
+    }
+  }
+  &__floating {
+    position: absolute;
+    animation: float-up 1s ease-out forwards;
+    color: $primary;
+    font-size: 24px;
+    width: max-content;
+    pointer-events: none;
+    user-select: none;
+  }
+  @keyframes float-up {
+    0% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(-50px);
+      opacity: 0;
+    }
+  }
+}

@@ -1,0 +1,50 @@
+@import "../combiner/combiner.scss";
+
+.upgrade-card {
+  background-color: $black;
+  border-radius: $border-radius;
+  padding: 16px;
+  display: flex;
+  &:not(:last-child) {
+    margin-bottom: 16px;
+  }
+  &__icon {
+    height: 100px;
+    width: 100px;
+    margin-right: 10px;
+  }
+  &__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+  }
+  &__header {
+    color: white;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin: 0;
+    span {
+      color: $primary;
+    }
+  }
+  &__subheader {
+    color: #696969;
+    font-size: 13px;
+    margin-top: 8px;
+    margin-bottom: 16px;
+    text-align: center;
+  }
+  &__exp {
+    width: 100%;
+    background-color: #696969;
+    border-radius: 10px;
+    height: 10px;
+  }
+  &__button {
+    font-size: 16px;
+    margin-top: 12px;
+    width: 100%;
+  }
+}
