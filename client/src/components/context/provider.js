@@ -8,6 +8,7 @@ function Provider({ children }) {
   const [isLoaded, setIsLoaded] = useState(false);
   const [balance, setBalance] = useState(0);
   const [clickReward, setClickReward] = useState(1);
+  const [profileInfo, setProfileInfo] = useState({});
 
   const [upgrades, setUpgrades] = useState({});
 
@@ -41,6 +42,11 @@ function Provider({ children }) {
       setClickReward(
         [1, 3, 7, 12, 20, 30, 45, 60, 80, 100][response.clickBonusLevel]
       );
+      setProfileInfo({
+        earned: response.earned,
+        referrals: response.referrals.length,
+        telegramId: response.telegramId,
+      });
 
       setIsLoaded(true);
     };
@@ -56,6 +62,8 @@ function Provider({ children }) {
         upgrades,
         setUpgrades,
         clickReward,
+        profileInfo,
+        initData: WebApp.initData,
       }}
     >
       {isLoaded === true ? children : <div className="loading">Loading...</div>}

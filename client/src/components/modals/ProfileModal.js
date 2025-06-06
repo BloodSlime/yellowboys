@@ -1,13 +1,16 @@
 import React from "react";
+import { useContext } from "react";
+import ClickerContext from "../context/provider";
 
 const ProfileModal = () => {
+  const { profileInfo, balance, formatNumber } = useContext(ClickerContext);
   const statistics = new Map([
-    ["Your balance", 1500],
-    ["Total earned", 3000],
-    ["Amount of referrals", 15],
+    ["Your balance", formatNumber(balance)],
+    ["Total earned", formatNumber(profileInfo.earned)],
+    ["Amount of referrals", profileInfo.referrals],
   ]);
 
-  const telegramId = "861756342"; // Replace with the actual Telegram ID
+  const telegramId = profileInfo.telegramId; // Replace with the actual Telegram ID
   const refLink = `https://t.me/YellowBoysAppBot/yboysapp?startapp=${telegramId}`;
 
   const copyToClipboard = async () => {

@@ -18,7 +18,6 @@ const getUserData = async (initData) => {
     return response.data;
   } catch (error) {
     console.error("Error fetching user data:", error);
-    throw error;
   }
 };
 
@@ -38,4 +37,16 @@ const updateUserData = async (initData, data) => {
   }
 };
 
-export { getUserData, updateUserData };
+const getLeaderboards = async (initData) => {
+  try {
+    const response = await instance.get("/getLeaderboards", {
+      headers: { "Telegram-WebApp-InitData": initData },
+    });
+
+    return response.data;
+  } catch (error) {
+    console.log("unable to get leaderboards: ", error);
+  }
+};
+
+export { getUserData, updateUserData, getLeaderboards };

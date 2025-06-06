@@ -1,13 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import ClickerContext from "../context/provider";
+import { getLeaderboards } from "../api/api";
 
 const LeaderboardModal = () => {
   const [openedTable, setOpenedTable] = useState("balance");
+  const [isLoaded, setIsLoaded] = useState(false);
+  const { initData } = useContext(ClickerContext);
 
   const handleTableChange = (table) => {
     setOpenedTable(table);
   };
 
-  const leadersByBalance = [
+  let leadersBalance = [];
+
+  useEffect(() => {
+    const getLeaderboards = async () => {
+      const response = getLeaderboards();
+      console.log(response.json());
+    };
+    getLeaderboards();
+  }, []);
+
+  leadersByBalance = [
     { id: 1, value: 1000, username: "user1" },
     { id: 2, value: 900, username: "user2" },
     { id: 3, value: 800, username: "user3" },

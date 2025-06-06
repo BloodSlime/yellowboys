@@ -2,6 +2,8 @@ import React, { useState, useEffect, useContext } from "react";
 import ClickerContext from "./context/provider";
 import Balance from "./helpers/Balance";
 import FloatingValue from "./helpers/FloatingValue";
+import WebApp from "@twa-dev/sdk";
+import { updateUserData } from "./api/api";
 
 const Clicker = () => {
   const { balance, setBalance, clickReward } = useContext(ClickerContext);
@@ -29,6 +31,8 @@ const Clicker = () => {
   useEffect(() => {
     const timeout = setTimeout(() => {
       //api запрос - update balance у пользователя
+      const dataToSend = { balance };
+      updateUserData(WebApp.initData, dataToSend);
       console.log("запрос ушел");
       setRealValue((balance * 0.0001).toFixed(3));
     }, 500);

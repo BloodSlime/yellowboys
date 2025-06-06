@@ -37,4 +37,50 @@ router.post("/updateUser", async (req, res) => {
   }
 });
 
+router.get("/getLeaderboards", async (req, res) => {
+  try {
+    const sortedUsersByBalance = await User.findAll({
+      order: [["balance", "DESC"]],
+    });
+    const topTenUsersByBalance = sortedUsersByBalance
+      .slice(0, 10)
+      .map((user) => ({
+        username: user.username || "UnknownUser",
+        balance: user.balance,
+      }));
+    const userPlacementByBalance =
+      sortedUsersByBalance.findIndex(
+        (user) => user.telegramId === req.query.userId
+      ) + 1;
+
+    const sortedUsersByReferrals = await User.findAll();
+    const topTenUsersByReferrals = sortedUsersByReferrals
+      .sort((a, b) => b.referrals.length - a.referrals.length)
+      .slice(0, 10)
+      .map((user) => ({
+        username: user.username || "UnknownUser",
+        referrals: user.referrals.length,
+      }));
+    const userPlacementByReferrals =
+      sortedUsersByReferrals.findIndex(
+        (user) => user.telegramId === req.query.userId
+      ) + 1;
+    const userData = await User.findOne({
+      where: { telegramId: req.query.userId },
+    });
+
+    res.json({
+      topTenUsersByBalance,
+      topTenUsersByReferrals,
+      userPlacementByBalance,
+      userPlacementByReferrals,
+      amountOfUsers: sortedUsersByBalance.length,
+      amountOfReferrals: userData.referrals.length,
+    });
+  } catch (error) {
+    console.log("Unable to get leaderboard data: ", error);
+    res.status(500).json({ message: error.message });
+  }
+});
+
 module.exports = router;

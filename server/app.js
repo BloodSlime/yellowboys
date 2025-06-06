@@ -3,11 +3,6 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const telegramAuth = require("./middlewares/TelegramAuth.js");
 
-// const corsOptions = {
-//   origin: "http://localhost:3000/",
-//   optionsSuccessStatus: 200,
-// };
-
 const app = express();
 app.use(
   cors({
