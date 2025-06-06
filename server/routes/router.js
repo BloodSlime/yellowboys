@@ -50,7 +50,7 @@ router.get("/getLeaderboards", async (req, res) => {
       }));
     const userPlacementByBalance =
       sortedUsersByBalance.findIndex(
-        (user) => user.telegramId === req.query.userId
+        (user) => user.telegramId === req.telegramUser.id
       ) + 1;
 
     const sortedUsersByReferrals = await User.findAll();
@@ -63,10 +63,10 @@ router.get("/getLeaderboards", async (req, res) => {
       }));
     const userPlacementByReferrals =
       sortedUsersByReferrals.findIndex(
-        (user) => user.telegramId === req.query.userId
+        (user) => user.telegramId === req.telegramUser.id
       ) + 1;
     const userData = await User.findOne({
-      where: { telegramId: req.query.userId },
+      where: { telegramId: req.telegramUser.id },
     });
 
     res.json({

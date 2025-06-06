@@ -11,14 +11,14 @@ const LeaderboardModal = () => {
     setOpenedTable(table);
   };
 
-  let leadersBalance = [];
+  let leadersByBalance = [];
 
   useEffect(() => {
-    const getLeaderboards = async () => {
-      const response = getLeaderboards();
-      console.log(response.json());
+    const getLeaderboardsFromServer = async () => {
+      const response = getLeaderboards(initData);
+      console.log(response);
     };
-    getLeaderboards();
+    getLeaderboardsFromServer();
   }, []);
 
   leadersByBalance = [
