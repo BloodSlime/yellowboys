@@ -66,7 +66,7 @@ router.get("/getLeaderboards", async (req, res) => {
         (user) => user.telegramId === req.telegramUser.id
       ) + 1;
     const userData = await User.findOne({
-      where: { telegramId: req.telegramUser.id },
+      where: { telegramId: `${req.telegramUser.id}` },
     });
 
     res.json({

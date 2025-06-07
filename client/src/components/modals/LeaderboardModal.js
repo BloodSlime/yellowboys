@@ -15,7 +15,7 @@ const LeaderboardModal = () => {
 
   useEffect(() => {
     const getLeaderboardsFromServer = async () => {
-      const response = getLeaderboards(initData);
+      const response = await getLeaderboards(initData);
       console.log(response);
     };
     getLeaderboardsFromServer();
