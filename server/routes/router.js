@@ -50,7 +50,7 @@ router.get("/getLeaderboards", async (req, res) => {
       }));
     const userPlacementByBalance =
       sortedUsersByBalance.findIndex(
-        (user) => user.telegramId === req.telegramUser.id
+        (user) => user.telegramId === `${req.telegramUser.id}`
       ) + 1;
 
     const sortedUsersByReferrals = await User.findAll();
@@ -63,19 +63,14 @@ router.get("/getLeaderboards", async (req, res) => {
       }));
     const userPlacementByReferrals =
       sortedUsersByReferrals.findIndex(
-        (user) => user.telegramId === req.telegramUser.id
+        (user) => user.telegramId === `${req.telegramUser.id}`
       ) + 1;
-    const userData = await User.findOne({
-      where: { telegramId: `${req.telegramUser.id}` },
-    });
 
     res.json({
       topTenUsersByBalance,
       topTenUsersByReferrals,
       userPlacementByBalance,
       userPlacementByReferrals,
-      amountOfUsers: sortedUsersByBalance.length,
-      amountOfReferrals: userData.referrals.length,
     });
   } catch (error) {
     console.log("Unable to get leaderboard data: ", error);

@@ -4,10 +4,9 @@ import { getLeaderboards } from "../api/api";
 
 const LeaderboardModal = () => {
   const [tableToRender, setTableToRender] = useState([]);
+  const [openedTable, setOpenedTable] = useState("balance");
   const [info, setInfo] = useState({});
-  const { initData } = useContext(ClickerContext);
-
-  let openedTable = "balance";
+  const { initData, formatNumber } = useContext(ClickerContext);
 
   useEffect(() => {
     const getLeaderboardsFromServer = async () => {
@@ -26,8 +25,8 @@ const LeaderboardModal = () => {
   }, []);
 
   const handleTableChange = (table, tableName) => {
-    openedTable = tableName;
-
+    console.log(info);
+    setOpenedTable(tableName);
     setTableToRender([...table]);
   };
 
@@ -69,7 +68,9 @@ const LeaderboardModal = () => {
             tableToRender.map((leader, index) => {
               return (
                 <div className="modal-content-table__item" key={index}>
-                  {`${index + 1}. ${leader.username} - ${leader.balance}`}
+                  {`${index + 1}. ${leader.username} - ${formatNumber(
+                    leader.value
+                  )}`}
                 </div>
               );
             })
