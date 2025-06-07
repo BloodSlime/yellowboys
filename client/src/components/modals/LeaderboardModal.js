@@ -6,7 +6,7 @@ const LeaderboardModal = () => {
   const [tableToRender, setTableToRender] = useState([]);
   const [openedTable, setOpenedTable] = useState("balance");
   const [info, setInfo] = useState({});
-  const { initData, formatNumber } = useContext(ClickerContext);
+  const { initData, formatNumber, profileInfo } = useContext(ClickerContext);
 
   useEffect(() => {
     const getLeaderboardsFromServer = async () => {
@@ -67,7 +67,12 @@ const LeaderboardModal = () => {
           ) : (
             tableToRender.map((leader, index) => {
               return (
-                <div className="modal-content-table__item" key={index}>
+                <div
+                  className={`modal-content-table__item ${
+                    profileInfo.username === leader.username ? "active" : ""
+                  }`}
+                  key={index}
+                >
                   {`${index + 1}. ${leader.username} - ${formatNumber(
                     leader.value
                   )}`}

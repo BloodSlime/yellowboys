@@ -78,4 +78,22 @@ router.get("/getLeaderboards", async (req, res) => {
   }
 });
 
+router.get("/calulate-ref-bouns", async (req, res) => {
+  try {
+    const telegramId = req.telegramUser.id;
+    const referrals = await User.findAll({
+      where: { referrerId: `${telegramId}` },
+    });
+
+    const referralDetails = referrals.map((ref) => ({
+      telegramId: ref.telegramId,
+      earned: ref.earned,
+    }));
+
+    res.json(referralDetails);
+  } catch (error) {
+    console.log("unable to get refs data: ", error);
+  }
+});
+
 module.exports = router;

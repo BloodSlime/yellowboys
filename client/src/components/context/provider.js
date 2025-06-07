@@ -9,6 +9,7 @@ function Provider({ children }) {
   const [balance, setBalance] = useState(0);
   const [clickReward, setClickReward] = useState(1);
   const [profileInfo, setProfileInfo] = useState({});
+  const [referralBonus, setReferralBonus] = useState(0);
 
   const [upgrades, setUpgrades] = useState({});
 
@@ -40,13 +41,15 @@ function Provider({ children }) {
         rouletteMultiplierLevel: response.rouletteMultiplierLevel,
       });
       setClickReward(
-        [1, 3, 7, 12, 20, 30, 45, 60, 80, 100][response.clickBonusLevel]
+        [1, 3, 7, 12, 20, 30, 45, 60, 80, 100][response.clickBonusLevel - 1]
       );
       setProfileInfo({
+        username: response.username,
         earned: response.earned,
         referrals: response.referrals.length,
         telegramId: response.telegramId,
       });
+      setReferralBonus();
 
       setIsLoaded(true);
     };

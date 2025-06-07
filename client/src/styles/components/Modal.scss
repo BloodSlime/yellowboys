@@ -74,6 +74,7 @@
       }
       &__body {
         height: max-content;
+        min-height: 407px;
         width: 100%;
         background-color: $black;
         border-radius: $border-radius;
@@ -88,6 +89,10 @@
         &:last-child {
           border-bottom: none;
           margin-bottom: 0;
+        }
+        &.active {
+          color: $primary;
+          filter: $element-glow;
         }
       }
     }

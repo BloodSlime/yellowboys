@@ -33,7 +33,6 @@ const Clicker = () => {
       //api запрос - update balance у пользователя
       const dataToSend = { balance };
       updateUserData(WebApp.initData, dataToSend);
-      console.log("запрос ушел");
       setRealValue((balance * 0.0001).toFixed(3));
     }, 500);
 

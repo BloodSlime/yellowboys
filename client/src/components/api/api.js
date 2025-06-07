@@ -49,4 +49,16 @@ const getLeaderboards = async (initData) => {
   }
 };
 
-export { getUserData, updateUserData, getLeaderboards };
+const getReferralsData = async (initData) => {
+  try {
+    const response = await instance.get("/calulate-ref-bouns", {
+      headers: { "Telegram-WebApp-InitData": initData },
+    });
+
+    return response.data;
+  } catch (error) {
+    console.log("unable to reach endpoint /calculate-ref-bonus", error);
+  }
+};
+
+export { getUserData, updateUserData, getLeaderboards, getReferralsData };
