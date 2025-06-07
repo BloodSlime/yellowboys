@@ -3,54 +3,33 @@ import ClickerContext from "../context/provider";
 import { getLeaderboards } from "../api/api";
 
 const LeaderboardModal = () => {
-  const [openedTable, setOpenedTable] = useState("balance");
-  const [isLoaded, setIsLoaded] = useState(false);
+  const [tableToRender, setTableToRender] = useState([]);
+  const [info, setInfo] = useState({});
   const { initData } = useContext(ClickerContext);
 
-  const handleTableChange = (table) => {
-    setOpenedTable(table);
-  };
-
-  let leadersByBalance = [];
+  let openedTable = "balance";
 
   useEffect(() => {
     const getLeaderboardsFromServer = async () => {
       const response = await getLeaderboards(initData);
-      console.log(response);
+
+      setInfo({
+        leadersByBalance: response.topTenUsersByBalance,
+        leadersByReferrals: response.topTenUsersByReferrals,
+        balancePlacement: response.userPlacementByBalance,
+        refPlacement: response.userPlacementByReferrals,
+      });
+
+      setTableToRender(response.topTenUsersByBalance);
     };
     getLeaderboardsFromServer();
   }, []);
 
-  leadersByBalance = [
-    { id: 1, value: 1000, username: "user1" },
-    { id: 2, value: 900, username: "user2" },
-    { id: 3, value: 800, username: "user3" },
-    { id: 4, value: 700, username: "user4" },
-    { id: 5, value: 600, username: "user5" },
-    { id: 6, value: 500, username: "user6" },
-    { id: 7, value: 400, username: "user7" },
-    { id: 8, value: 300, username: "user8" },
-    { id: 9, value: 200, username: "user9" },
-    { id: 10, value: 100, username: "user10" },
-  ];
-  const placemeentByBalance = 24;
+  const handleTableChange = (table, tableName) => {
+    openedTable = tableName;
 
-  const leadersByReferrals = [
-    { id: 1, value: 50, username: "referral1" },
-    { id: 2, value: 45, username: "referral2" },
-    { id: 3, value: 40, username: "referral3" },
-    { id: 4, value: 35, username: "referral4" },
-    { id: 5, value: 30, username: "referral5" },
-    { id: 6, value: 25, username: "referral6" },
-    { id: 7, value: 20, username: "referral7" },
-    { id: 8, value: 15, username: "referral8" },
-    { id: 9, value: 10, username: "referral9" },
-    { id: 10, value: 5, username: "referral10" },
-  ];
-  const placemeentByReferrals = 12;
-
-  const leaders =
-    openedTable === "balance" ? leadersByBalance : leadersByReferrals;
+    setTableToRender([...table]);
+  };
 
   return (
     <div className="modal__content">
@@ -58,10 +37,10 @@ const LeaderboardModal = () => {
       <div className="modal-content__table">
         <div className="modal-content-table__header">
           <button
-            className={`modal-content-table-header__item ${
+            className={`modal-content-table-header__item ${openedTable} ${
               openedTable === "balance" ? "active" : ""
             }`}
-            onClick={() => handleTableChange("balance")}
+            onClick={() => handleTableChange(info.leadersByBalance, "balance")}
           >
             balance
           </button>
@@ -69,7 +48,9 @@ const LeaderboardModal = () => {
             className={`modal-content-table-header__item ${
               openedTable === "referrals" ? "active" : ""
             }`}
-            onClick={() => handleTableChange("referrals")}
+            onClick={() =>
+              handleTableChange(info.leadersByReferrals, "referrals")
+            }
           >
             referrals
           </button>
@@ -82,19 +63,23 @@ const LeaderboardModal = () => {
               : { borderRadius: "20px 0 20px 20px" }
           }
         >
-          {leaders.map((leader, index) => {
-            return (
-              <div className="modal-content-table__item" key={leader.id}>
-                {`${index + 1}. ${leader.username} - ${leader.value}`}
-              </div>
-            );
-          })}
+          {tableToRender.length === 0 ? (
+            <div>Loading...</div>
+          ) : (
+            tableToRender.map((leader, index) => {
+              return (
+                <div className="modal-content-table__item" key={index}>
+                  {`${index + 1}. ${leader.username} - ${leader.balance}`}
+                </div>
+              );
+            })
+          )}
         </div>
         <div className="modal-content__placement">
           Your place:{" "}
           {openedTable === "balance"
-            ? placemeentByBalance
-            : placemeentByReferrals}
+            ? info.balancePlacement
+            : info.refPlacement}
         </div>
       </div>
     </div>

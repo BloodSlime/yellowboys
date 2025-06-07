@@ -46,7 +46,7 @@ router.get("/getLeaderboards", async (req, res) => {
       .slice(0, 10)
       .map((user) => ({
         username: user.username || "UnknownUser",
-        balance: user.balance,
+        value: user.balance,
       }));
     const userPlacementByBalance =
       sortedUsersByBalance.findIndex(
@@ -59,7 +59,7 @@ router.get("/getLeaderboards", async (req, res) => {
       .slice(0, 10)
       .map((user) => ({
         username: user.username || "UnknownUser",
-        referrals: user.referrals.length,
+        value: user.referrals.length,
       }));
     const userPlacementByReferrals =
       sortedUsersByReferrals.findIndex(
